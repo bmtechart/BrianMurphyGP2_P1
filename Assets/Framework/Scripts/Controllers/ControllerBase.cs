@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public class ControllerBase : MonoBehaviour
 {
+    protected int Team;
+    protected GameObject ControlledUnit;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }

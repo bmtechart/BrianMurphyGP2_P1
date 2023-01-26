@@ -40,17 +40,29 @@ public class CharacterMovement : MonoBehaviour
     #region Body
     void Start()
     {
+        //if there is no hardcoded reference
         if (!rb)
         {
             rb = GetComponent<Rigidbody>();
         }
+
+        //if there is no rigid body componenet at all
+        if (!rb)
+        {
+
+        }
+
+        _isGrounded = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_isGrounded) { return; }
+
         Move();
         Turn();
+
         //update animation data
     }
     #endregion
@@ -78,19 +90,18 @@ public class CharacterMovement : MonoBehaviour
 
     public void Turn()
     {
-        if (_moveDirection.sqrMagnitude > 0.01f)
-        {
-            Quaternion rot = Quaternion.Slerp(transform.rotation,
-                                                Quaternion.LookRotation(GetCameraDirection()),
-                                                _turnRate);
+        //don't bother udpdating if the character has only turned a little
+        if (_moveDirection.sqrMagnitude < 0.01f) { return; }
 
-            //i
-            _animator.SetFloat("Turning", Mathf.Clamp(rot.eulerAngles.y - transform.rotation.eulerAngles.y, -1f, 1f));
-            //Debug.Log(rot.eulerAngles.y - transform.rotation.eulerAngles.y);
-            rb.MoveRotation(rot);
+        //get target rotation
+        Quaternion rot = Quaternion.Slerp(transform.rotation,
+                                            Quaternion.LookRotation(GetCameraDirection()),
+                                            _turnRate);
+        //update animation
+        _animator.SetFloat("Turning", Mathf.Clamp(rot.eulerAngles.y - transform.rotation.eulerAngles.y, -1f, 1f));
+        //move rigid body
+        rb.MoveRotation(rot); 
 
-            
-        }
     }
 
     void Move()
@@ -106,31 +117,48 @@ public class CharacterMovement : MonoBehaviour
     #region Jumping
     public void Jump()
     {
-        rb.AddForce(transform.up * _jumpForce);
+        //only jump if character is on ground
+        if (!_isGrounded) { return; }
+
+        Vector3 movement = GetCameraDirection();
+        Vector3 jumpVector = new Vector3(movement.x, 1.0f, movement.z);
+        rb.AddForce(jumpVector * _jumpForce);
         _isGrounded = false;
         _animator.SetBool("IsGrounded", _isGrounded);
         Debug.Log("started jump");
     }
-    //trace for ground
+
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (Vector3.Dot(collision.GetContact(0).normal, Vector3.up) >= _groundingThreshold)
-        {
-            if (_isGrounded)
-            {
-                return;
-            }
-
-
-           _isGrounded = true;
-           _animator.SetBool("IsGrounded", _isGrounded);
+        if (_isGrounded) { return; }
+        float collisionDot = Vector3.Dot(collision.GetContact(0).normal, Vector3.up);
+        
+        if (collisionDot <= _groundingThreshold) 
+        { 
+            _isGrounded =false;
+            return; 
         }
 
-        //Debug.Log(Vector3.Dot(collision.GetContact(0).normal, Vector3.up));
 
-        //check dot product of collision normal with up vector
-        //set grounded if dot product is equal to 1
+        _isGrounded = true;
+        _animator.SetBool("IsGrounded", _isGrounded);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (_isGrounded) { return; }
+        
+        float collisionDot = Vector3.Dot(collision.GetContact(0).normal, Vector3.up);
+
+        //if we are touching a ceiling or wall, return
+        if (collisionDot >= _groundingThreshold) 
+        {
+            _isGrounded =false; 
+            return; 
+        }
+
+        _isGrounded = true;
+        _animator.SetBool("IsGrounded", _isGrounded);
     }
     #endregion
 }

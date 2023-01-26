@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerBase : MonoBehaviour
+public class PlayerController : ControllerBase
 {
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
-        GameManager.Instance.sampleTest();
+        
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
         
     }

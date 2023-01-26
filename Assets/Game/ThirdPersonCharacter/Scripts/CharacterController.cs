@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(PlayerInput))]
-public class CharacterController : Controller
+public class CharacterController : MonoBehaviour
 {
 
     #region components

@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 7871671043612387792}
   - component: {fileID: 4406880841453660389}
   m_Layer: 0
-  m_Name: ThirdPersonCamera
+  m_Name: PF_ThirdPersonCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

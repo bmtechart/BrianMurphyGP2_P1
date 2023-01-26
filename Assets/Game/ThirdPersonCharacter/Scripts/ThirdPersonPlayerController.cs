@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class ThirdPersonPlayerController : PlayerController
 {
     [Header("Target Objects")]
-    public GameObject Unit;
     public GameObject CameraRig;
 
     private PlayerInput _playerInput;
 
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
         GameManager.Instance.sampleTest();
         //get character unit controller from unit
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
         
     }
