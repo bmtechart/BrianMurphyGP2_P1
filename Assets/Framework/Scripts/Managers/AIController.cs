@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : ControllerBase
+public class AIController : ManagerBase
 {
     // Start is called before the first frame update
     override protected void Start()

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : ControllerBase
+public class PlayerManager : ManagerBase
 {
     // Start is called before the first frame update
-    override protected void Start()
+    protected override void Start()
     {
         
     }
 
     // Update is called once per frame
-    override protected void Update()
+    protected override void Update()
     {
         
     }

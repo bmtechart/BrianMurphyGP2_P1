@@ -29,6 +29,7 @@ public class CharacterController : MonoBehaviour
     private Vector3 _smoothMovement;
     #endregion
 
+    #region Start
     void Start()
     {
         //hide cursor
@@ -41,14 +42,16 @@ public class CharacterController : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region Update
     void Update()
     {
         SmoothMovementInput();
         cm.UpdateMovementData(_smoothMovement);
         UpdateAnimationData();
     }
-
+    #endregion
 
     #region Input Action System
     public void Move(InputAction.CallbackContext ctx)

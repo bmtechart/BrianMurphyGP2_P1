@@ -60,7 +60,7 @@ public class FlagController : MonoBehaviour
 
         //set flag color
         _flag = transform.Find("FlagRoot/Flag").gameObject;
-        _flag.GetComponent<MeshRenderer>().material.color = _flagColor;
+        _flag.GetComponent<MeshRenderer>().sharedMaterial.color = _flagColor;
 
         //move flag up and down flag pole
 

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerBase : MonoBehaviour
+public class ManagerBase : MonoBehaviour
 {
-    protected int Team;
     protected GameObject ControlledUnit;
 
     // Start is called before the first frame update

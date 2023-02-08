@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ThirdPersonPlayerController : PlayerController
+public class ThirdPersonPlayerController : PlayerManager
 {
     [Header("Target Objects")]
     public GameObject CameraRig;
@@ -13,7 +13,6 @@ public class ThirdPersonPlayerController : PlayerController
     // Start is called before the first frame update
     override protected void Start()
     {
-        GameManager.Instance.sampleTest();
         //get character unit controller from unit
         //throw error if there is no unit controller on character
 
