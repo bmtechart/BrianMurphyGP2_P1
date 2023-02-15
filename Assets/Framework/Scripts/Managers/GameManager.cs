@@ -6,8 +6,14 @@ using UnityEngine;
 
 /*
  * 
- * The game manager sets up and stores the basic conditions of the game, such as how many teams there are, how many players, etc. 
+ * The game manager sets up and stores the basic conditions of the game, 
+ * e.g. How many teams there are, how many players, etc.
+ * 
+
  * The game manager only exists on the server.
+ *
+ * This base class will handle primarily network replication. 
+ * To handle tasks specific to a game, create a child class of this behavior.
  * 
  * Key Tasks:
  *  1. Spawn game state object

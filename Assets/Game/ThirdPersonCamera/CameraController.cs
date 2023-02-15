@@ -1,9 +1,13 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+
+    public CinemachineVirtualCamera virtualCamera;
+
     private Quaternion _targetRotation;
     private Quaternion _currentRotation;
 
@@ -11,7 +15,9 @@ public class CameraController : MonoBehaviour
     private float _rotationRate;
 
     [SerializeField]
-    private float _clampX= 75f;
+    private float _maxClampX= 75f;
+    [SerializeField]
+    private float _minClampX = -20.0f;
 
     [SerializeField]
     private GameObject _followTarget;
@@ -24,7 +30,12 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+
+        if (!virtualCamera)
+        {
+            Debug.Log("No Virtual Camera Present!");
+        }
     }
 
     public void UpdateRotationData(Vector3 _rawRotation)
@@ -32,14 +43,19 @@ public class CameraController : MonoBehaviour
 
         _currentRotation = _followTarget.transform.localRotation;
         Vector3 currentEuler = _currentRotation.eulerAngles;
-        Vector3 targetEuler = currentEuler + _rawRotation * Time.deltaTime * _rotationRate;
-        targetEuler = new Vector3(Mathf.Clamp(targetEuler.x, 0.0f, _clampX), targetEuler.y, targetEuler.z);
+        Vector3 targetEuler = currentEuler + _rawRotation;
+        //targetEuler.x = Mathf.Clamp(targetEuler.x, _minClampX, _maxClampX);
         _targetRotation.eulerAngles = targetEuler;
     }
 
     private void RotateCamera()
     {
-        _followTarget.transform.localRotation = _targetRotation;
+        _followTarget.transform.localRotation = Quaternion.Slerp(_followTarget.transform.localRotation, _targetRotation, Time.deltaTime * _rotationRate);
+    }
+
+    private void Dolly()
+    {
+
     }
 
     private void FollowTarget()

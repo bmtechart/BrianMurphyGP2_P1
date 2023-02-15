@@ -79,10 +79,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cm: {fileID: -9036757755010056215}
+  SmoothInput: 0.5
   playerInput: {fileID: 8786175991867342629}
   playerCamera: {fileID: 0}
   cameraController: {fileID: 0}
-  SmoothInput: 0.5
+  EquippedWeapons: []
+  _animator: {fileID: 0}
 --- !u!114 &-9036757755010056215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,8 +98,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
-  _moveSpeed: 2
-  _turnRate: 0.1
+  _animator: {fileID: 0}
+  _baseMoveSpeed: 0
+  _sprintMoveSpeed: 0
+  _turnRate: 0.0001
+  _jumpForce: 10
+  _isGrounded: 1
+  _groundingThreshold: 0.75
+  rb: {fileID: 0}
 --- !u!114 &8786175991867342629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +179,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ea97797d-7d0d-4f6d-bc80-ba4f8ac63693
     m_ActionName: ThirdPersonMovement/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6480837376457440585}
+        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1fd1be57-f1c6-4279-96d7-17f49df1b224
+    m_ActionName: ThirdPersonMovement/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6480837376457440585}
+        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c3ff1153-ea3e-4c98-ad47-ce5fd5c09c28
+    m_ActionName: ThirdPersonMovement/Sprint[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ThirdPersonMovement
