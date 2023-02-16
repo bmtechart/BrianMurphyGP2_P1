@@ -56,15 +56,21 @@ public class CharacterController : MonoBehaviour
         UpdateAnimationData();
         UpdateWeaponData();
     }
-    #endregion
 
     private void UpdateWeaponData()
     {
-        foreach(WeaponController w in EquippedWeapons)
+        foreach (WeaponController w in EquippedWeapons)
         {
             w.forward = cameraController.virtualCamera.transform.forward;
         }
     }
+
+    private void UpdateAnimationData()
+    {
+        _animator.SetFloat("ForwardMovement", Mathf.Clamp(Mathf.Abs(_smoothMovement.z) + Mathf.Abs(_smoothMovement.x), 0, 1));
+    }
+
+    #endregion
 
     #region Input Action System
     private InputAction shootAction;
@@ -109,10 +115,7 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    private void UpdateAnimationData()
-    {
-        _animator.SetFloat("ForwardMovement", Mathf.Clamp(Mathf.Abs(_smoothMovement.z)+Mathf.Abs(_smoothMovement.x), 0, 1));
-    }
+
 
     public void Jump(InputAction.CallbackContext ctx)
     {
